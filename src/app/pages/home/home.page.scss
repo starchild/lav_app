@@ -1,0 +1,40 @@
+
+
+
+ion-img{
+    width: 80px;
+    height: 80px;
+}
+.home-section{
+    background-color: #70a1b6;
+    width: 100%;
+    //height: 150px;
+}
+.home-section1-bg{
+    width: 100%;
+    //height: 150px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.home-section2-bg{
+    width: 100%;
+    height: 150px;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.btn-item{
+    width: 80%;
+    height: 80px;
+    color: white;
+    --border-color: white;
+    font-size: large;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+}

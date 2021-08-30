@@ -1,0 +1,19 @@
+ion-content{
+    --background : #999898;
+}
+ion-header{
+    padding: 10px;
+}
+ion-label{
+    font-weight: bold;
+}
+ion-item {
+    --background: #999898;
+    --highlight-color-focused: none;
+    --highlight-background: none;
+    color: white;
+}
+.side-menu-logo{
+    width: 120px;
+    height: 100px;
+}

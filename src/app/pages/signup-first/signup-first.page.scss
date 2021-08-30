@@ -1,0 +1,45 @@
+ion-title{
+    letter-spacing: 0.1em; 
+    font-size: larger;
+}
+.toolbar{
+    height: 90px; 
+    align-items: center; 
+    justify-content: center; 
+    display: flex;
+}
+.logo-img{
+    width: 150px;
+    height: 100px;
+}
+.description_signup{
+    color: #313131;
+    font-size: 20px;
+    line-height: 1.5;
+}
+.button-div{
+    width: '100%';
+    display: flex;
+    flex-direction: row;
+
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+.button-next{
+    // width: '60%';
+     height: 60px;
+     font-size: 1.2em;
+     font-weight: 500;
+     margin: 0 !important;
+     margin-top: 10px !important;
+     --background: hsl(198, 35%, 58%);
+     --background-activated : #e2f1e4;
+     --color: white;
+     --border-color : white;
+     --border-style: solid;
+     --border-width: 1px;
+     --border-radius: 5px;
+     ion-icon{
+         font-size: 1.2em;
+     }
+ }

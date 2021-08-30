@@ -1,0 +1,294 @@
+<ion-header mode="ios">
+  <ion-header mode="ios">
+    <app-header
+      [pageTitle]="pageTitle"
+      [cartBadgeCount]="cartBadgeCount"
+      [isLoggedIn]="isLoggedIn">
+    </app-header>
+  </ion-header>
+  
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form class="form" [formGroup]="validationsform" (ngSubmit)="submit(validationsform.value)">
+  <ion-grid >
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>First Name</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" placeholder="First Name" type="text" formControlName="first_name"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Last Name</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" placeholder="Last Name" type="text" formControlName="last_name"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>      
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="4">
+        <ion-list class="line-input" mode="md"> 
+          <p>Unit/Floor</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" formControlName="address1"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+      <ion-col size="8">
+        <ion-list class="line-input" mode="md"> 
+          <p>Street Address</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" formControlName="address2"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>      
+    </ion-row>    
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>City</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" formControlName="city"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Post Code</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" formControlName="post_code"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>      
+    </ion-row>   
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>State</p>
+          <ion-item mode="md" lines="none" *ngIf="isDropBoxForState">
+            <ion-select mode="md" style="width: 100%;" formControlName="state">
+              <div *ngFor="let item of stateList">
+                <div *ngIf="profileInfo && profileInfo.state == item.value"> 
+                  <ion-select-option  [value]="item.value" selected>{{item.value}}</ion-select-option>
+                </div>
+                <div *ngIf="profileInfo && profileInfo.state != item.value"> 
+                  <ion-select-option  [value]="item.value">{{item.value}}</ion-select-option>
+                </div>
+              </div>
+            </ion-select>  
+          </ion-item> 
+          <ion-item mode="md" lines="none" *ngIf="!isDropBoxForState">
+            <ion-input placeholder="State*" formControlName="state"></ion-input>
+          </ion-item>  
+        </ion-list>
+      </ion-col>
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Country</p>
+          <ion-item mode="md" lines="none">
+            <ion-select mode="md" style="width: 100%;" formControlName="countrykey" (ionChange)="changeCountry($event)">
+              <div *ngFor="let item of countryList">
+                <div *ngIf="profileInfo && profileInfo.countrykey == item.id"> 
+                  <ion-select-option  [value]="item.id" selected>{{item.name}}</ion-select-option>
+                </div>
+                <div *ngIf="profileInfo && profileInfo.countrykey != item.id"> 
+                  <ion-select-option  [value]="item.id">{{item.name}}</ion-select-option>
+                </div>
+              </div>
+            </ion-select>  
+          </ion-item> 
+        </ion-list>
+      </ion-col>      
+    </ion-row>    
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12">
+        <ion-list class="line-input" mode="md"> 
+          <p>Email Address</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" type="email" formControlName="email"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+    </ion-row>   
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Telephone</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" formControlName="tel_phone"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Mobile</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" formControlName="mobile_phone"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>      
+    </ion-row>  
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Prefered Password</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="password" formControlName="password"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Repeat Preferred Password</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="password" formControlName="confirm_password"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>      
+    </ion-row>                    
+  </ion-grid>
+  <ion-grid class="ion-padding ship-profile">
+    <ion-row class="ion-justify-content-center ion-align-items-center ion-padding-start ion-padding-end">
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Name of Shop</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" formControlName="company"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Position</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" formControlName="position"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>      
+    </ion-row>  
+    <ion-row class="ion-justify-content-center ion-align-items-center ion-padding-start ion-padding-end">
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Telephone(other)</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" formControlName="fax"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Shop/land line number</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" formControlName="shop_phone"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>      
+    </ion-row>    
+    <ion-row class="ion-justify-content-center ion-align-items-center ion-padding-start ion-padding-end">
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Payment Method</p>
+          <ion-item mode="md" lines="none">
+            <ion-select mode="md" style="width: 100%;" formControlName="payment_method">
+              <div *ngFor="let item of paymentMethod">
+                <div *ngIf="profileInfo && profileInfo.payment_method == item.value"> 
+                  <ion-select-option  [value]="item.value">{{item.value}}</ion-select-option>
+                </div>  
+                <div *ngIf="profileInfo && profileInfo.payment_method != item.value"> 
+                  <ion-select-option  [value]="item.value">{{item.value}}</ion-select-option>
+                </div>
+              </div>
+            </ion-select>  
+        </ion-item> 
+        </ion-list>
+      </ion-col>
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Business Structure</p>
+          <ion-item mode="md" lines="none">
+            <ion-select mode="md" style="width: 100%;" formControlName="business_structure">
+              <div *ngFor="let item of businessStructure">
+                <div *ngIf="profileInfo && profileInfo.business_structure == item.value"> 
+                  <ion-select-option  [value]="item.value">{{item.value}}</ion-select-option>
+                </div>  
+                <div *ngIf="profileInfo && profileInfo.business_structure != item.value"> 
+                  <ion-select-option  [value]="item.value">{{item.value}}</ion-select-option>
+                </div>
+              </div>
+            </ion-select>  
+          </ion-item> 
+        </ion-list>
+      </ion-col>      
+    </ion-row>     
+    <ion-row class="ion-justify-content-center ion-align-items-center ion-padding-start ion-padding-end">
+      <ion-col size="12">
+        <ion-list class="line-input" mode="md"> 
+          <p>ABN</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" placeholder="ABN" formControlName="abn"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+    </ion-row>       
+    <ion-row class="ion-justify-content-center ion-align-items-center ion-padding-start ion-padding-end">
+      <ion-col size="12">
+        <ion-list class="line-input" mode="md"> 
+          <p>Please tell us a little about your business</p>
+          <ion-item mode="md" lines="none">
+            <ion-textarea rows="6" cols="20" placeholder="Enter any notes here..." formControlName="comment"></ion-textarea>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+    </ion-row> 
+    <ion-row class="ion-justify-content-center ion-align-items-center ion-padding-start ion-padding-end">
+      <ion-col size="12">
+        <ion-list class="line-input" mode="md"> 
+          <p>Number of years trading or proposed date of opening</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text"  formControlName="trading_years"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+    </ion-row>    
+    <ion-row class="ion-justify-content-center ion-align-items-center ion-padding-start ion-padding-end">
+      <ion-col size="12">
+        <ion-list class="line-input" mode="md"> 
+          <p>Number of years trading or proposed date of opening</p>
+          <ion-item mode="md" lines="none">
+            <ion-select mode="md" style="width: 100%;" formControlName="online_business">
+              <div *ngFor="let item of onlineBusiness">
+                <div *ngIf="profileInfo && profileInfo.online_business == item.value"> 
+                  <ion-select-option  [value]="item.value">{{item.name}}</ion-select-option>
+                </div>  
+                <div *ngIf="profileInfo && profileInfo.online_business != item.value"> 
+                  <ion-select-option  [value]="item.value">{{item.name}}</ion-select-option>
+                </div>
+              </div>
+            </ion-select>  
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+    </ion-row>    
+    <ion-row class="ion-justify-content-center ion-align-items-center ion-padding-start ion-padding-end">
+      <ion-col size="12">
+        <ion-list class="line-input" mode="md"> 
+          <p>If yes, what is your domain name?</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text"  formControlName="domain_name"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+    </ion-row>                
+  </ion-grid>
+  <div class="button-div">
+    <ion-button  class="button-proceed" type="submit" mode="ios" fill="solid"  expand="block"  [disabled]="!validationsform.valid">
+      Update My Details
+    </ion-button>
+  </div>
+</form>
+</ion-content>

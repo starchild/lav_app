@@ -1,0 +1,151 @@
+<ion-header mode="ios">
+  <ion-toolbar class="toolbar">
+    <ion-title>Delivery Details</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back();">
+        <ion-icon name="arrow-back-outline" style="font-size: 38px;" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-row>
+    <ion-col>
+      <ion-list class="line-input" mode="md"> 
+        <ion-label>
+          <h2>Order Comments & Special instructions</h2>
+          <p>Do you have anything you need to tell us about this order?</p>
+        </ion-label>
+        <ion-item mode="md" lines="none"  style="margin-top: 10px;">
+          <ion-textarea rows="6" cols="20" placeholder="Enter any notes here..." [(ngModel)]="comments"></ion-textarea>
+        </ion-item> 
+      </ion-list>  
+    </ion-col>
+  </ion-row>
+
+  <form class="form" [formGroup]="validationsform" (ngSubmit)="gotoPayment(validationsform.value)">
+  <ion-grid >
+    <ion-row class="ion-no-padding">
+      <ion-col>
+        <ion-list class="line-input" mode="md"> 
+          <ion-label>
+            <h2>Shipping Address</h2>
+          </ion-label>  
+      </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size='6'>
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" lines="none">
+            <ion-input placeholder="Email*" formControlName="email"></ion-input>
+          </ion-item> 
+        </ion-list>  
+      </ion-col>
+      <ion-col size='6'>
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" lines="none">
+            <ion-input placeholder="Confrim Email*" formControlName="confirm_email"></ion-input>
+          </ion-item> 
+        </ion-list>  
+      </ion-col>      
+    </ion-row>  
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size='6'>
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" lines="none">
+            <ion-input placeholder="First Name*" formControlName="first_name"></ion-input>
+          </ion-item> 
+        </ion-list>  
+      </ion-col>
+      <ion-col size='6'>
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" lines="none">
+            <ion-input placeholder="Last Name*" formControlName="last_name"></ion-input>
+          </ion-item> 
+        </ion-list>  
+      </ion-col>      
+    </ion-row>   
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" lines="none">
+            <ion-input placeholder="Address1*" formControlName="address1" readonly></ion-input>
+          </ion-item> 
+        </ion-list>  
+      </ion-col>
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" lines="none">
+            <ion-input placeholder="Address2*" formControlName="address2" readonly></ion-input>
+          </ion-item> 
+        </ion-list>  
+      </ion-col>      
+    </ion-row>           
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="8">
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" lines="none">
+            <ion-input placeholder="City*" formControlName="city" readonly></ion-input>
+          </ion-item> 
+        </ion-list>  
+      </ion-col>
+      <ion-col size="4">
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" lines="none">
+            <ion-input placeholder="Zip code*" formControlName="zip" readonly></ion-input>
+          </ion-item> 
+        </ion-list>  
+      </ion-col>      
+    </ion-row>   
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="5">
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" lines="none">
+            <ion-input placeholder="State*" formControlName="state" readonly></ion-input>
+          </ion-item> 
+        </ion-list>  
+      </ion-col>
+      <ion-col size="5">
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" lines="none">
+            <ion-input placeholder="Country*" formControlName="country" readonly></ion-input>
+          </ion-item> 
+        </ion-list>  
+      </ion-col>   
+      <ion-col size="2">&nbsp;</ion-col>   
+    </ion-row>    
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="4">
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" lines="none">
+            <ion-input placeholder="Phone*" formControlName="phone"></ion-input>
+          </ion-item> 
+        </ion-list>  
+      </ion-col>
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" lines="none">
+            <ion-input placeholder="Company*" formControlName="company"></ion-input>
+          </ion-item> 
+        </ion-list>  
+      </ion-col>   
+      <ion-col size="2">&nbsp;</ion-col>   
+    </ion-row> 
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col class="ion-text-center">
+        <div class="all-address-div">
+          Your order will be delivered to: <span class="address-text"> {{all_addressText}}</span>
+        </div>
+      </ion-col>
+    </ion-row>              
+  </ion-grid>
+  <div class="button-div">
+    <ion-button  class="button-proceed" type="submit" mode="ios" fill="solid"  expand="block"  [disabled]="!validationsform.valid">
+      PROCEED TO PAYMENT&nbsp;&nbsp;<ion-icon name="arrow-forward-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  </form>
+</ion-content>

@@ -1,0 +1,56 @@
+<ion-header mode="ios">
+  <app-header
+    [pageTitle]="pageTitle"
+    [cartBadgeCount]="cartBadgeCount"
+    [isLoggedIn]="isLoggedIn">
+  </app-header>
+</ion-header>
+<ion-content [fullscreen]="true" >
+
+  <ion-grid class="ion-no-padding">
+    <ion-row class="ion-justify-content-center ion-align-items-center" [ngStyle]="{'height': rowHeight}">
+      <ion-col size="12" class="ion-text-center">
+        <ion-slides pager="true" [options]="slideOpts">
+          <ion-slide *ngFor="let item of homeSliders; let i = index" [ngStyle]="{'height': rowHeight}">
+            <div class="slide-center-image" [ngStyle]="{'background-image':'url('+ img_dir + item.name +')'}">
+              <div class="slide-center-bg">
+                <div class="slide-center-text">
+                  <p class="title">{{item.title}}</p>
+                  <p class="description">{{item.description}}</p>
+                </div>
+              </div>
+            </div>
+          </ion-slide>
+
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12" class="ion-text-center">
+        <div class="home-section" [ngStyle]="{'height': rowButtonSectionHeight}">
+          <div class="home-section1-bg" [ngStyle]="{'height': rowButtonSectionHeight}">
+            <ion-button expand="block" fill="outline" class="btn-item" [routerLink]="['/special']">VIEW SALE ITEMS</ion-button>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12" class="ion-text-center">
+        <div class="home-section" [ngStyle]="{'height': rowButtonSectionHeight}">
+          <div class="home-section2-bg" [ngStyle]="{'height': rowButtonSectionHeight}">
+            <ion-button expand="block" fill="outline" class="btn-item" [routerLink]="['/new-arrival']">NEW ARRIVALS</ion-button>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12" class="ion-text-center">
+        <div class="home-section" [ngStyle]="{'height': rowButtonSectionHeight}">
+          <div class="home-section1-bg" [ngStyle]="{'height': rowButtonSectionHeight}">
+            <ion-button expand="block" fill="outline" class="btn-item" [routerLink]="['/clearance']">VIEW CLEARANCE ITEMS</ion-button>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>    
+  </ion-grid>
+</ion-content>

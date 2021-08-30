@@ -1,0 +1,154 @@
+<ion-header mode="ios">
+  <ion-toolbar class="toolbar" >
+    <ion-title>Payment & Billing Details</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back();">
+        <ion-icon name="arrow-back-outline" style="font-size: 38px;" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item lines="none">
+      <fa-icon icon="clipboard-check" class="clipboardIcon"></fa-icon>
+      <p style="font-weight: bold;">You can submit this form and our office will contact you for payment details.</p>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>My billing address is the same as my delivery address.</ion-label>
+      <ion-checkbox color="primary" checked slot="start" mode="md" style="margin-right: 10px; margin-left: 10px;" (ionChange)="onCheckboxChange($event)"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <form class="form" [formGroup]="validationsform" (ngSubmit)="submit(validationsform.value)">
+    <ion-grid *ngIf="isShowForm">
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size='6'>
+          <ion-list class="line-input" mode="md"> 
+            <ion-item mode="md" lines="none">
+              <ion-input placeholder="First Name*" formControlName="first_name"></ion-input>
+            </ion-item> 
+          </ion-list>  
+        </ion-col>
+        <ion-col size='6'>
+          <ion-list class="line-input" mode="md"> 
+            <ion-item mode="md" lines="none">
+              <ion-input placeholder="Last Name*" formControlName="last_name"></ion-input>
+            </ion-item> 
+          </ion-list>  
+        </ion-col>      
+      </ion-row>   
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="6">
+          <ion-list class="line-input" mode="md"> 
+            <ion-item mode="md" lines="none">
+              <ion-input placeholder="Address1*" formControlName="address1"></ion-input>
+            </ion-item> 
+          </ion-list>  
+        </ion-col>
+        <ion-col size="6">
+          <ion-list class="line-input" mode="md"> 
+            <ion-item mode="md" lines="none">
+              <ion-input placeholder="Address2*" formControlName="address2"></ion-input>
+            </ion-item> 
+          </ion-list>  
+        </ion-col>      
+      </ion-row>           
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="8">
+          <ion-list class="line-input" mode="md"> 
+            <ion-item mode="md" lines="none">
+              <ion-input placeholder="City*" formControlName="city"></ion-input>
+            </ion-item> 
+          </ion-list>  
+        </ion-col>
+        <ion-col size="4">
+          <ion-list class="line-input" mode="md"> 
+            <ion-item mode="md" lines="none">
+              <ion-input placeholder="Zip code*" formControlName="zip"></ion-input>
+            </ion-item> 
+          </ion-list>  
+        </ion-col>      
+      </ion-row>   
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="5">
+          <ion-list class="line-input" mode="md"> 
+            <ion-item mode="md" lines="none" *ngIf="isDropBoxForState">
+              <ion-select mode="md" style="width: 100%;" formControlName="state">
+                <div *ngFor="let item of stateList">
+                  <div *ngIf="deliveryAddressInfo.state && deliveryAddressInfo.state == item.value"> 
+                    <ion-select-option  [value]="item.value" selected>{{item.value}}</ion-select-option>
+                  </div>
+                  <div *ngIf="deliveryAddressInfo.state && deliveryAddressInfo.state != item.value"> 
+                    <ion-select-option  [value]="item.value">{{item.value}}</ion-select-option>
+                  </div>
+                </div>
+              </ion-select>  
+
+            </ion-item> 
+            <ion-item mode="md" lines="none" *ngIf="!isDropBoxForState">
+              <ion-input placeholder="State*" formControlName="state"></ion-input>
+            </ion-item>  
+          </ion-list>  
+        </ion-col>
+        <ion-col size="5">
+          <ion-list class="line-input" mode="md"> 
+            <ion-item mode="md" lines="none">
+              <ion-select mode="md" style="width: 100%;" formControlName="country" (ionChange)="changeCountry($event)">
+                <div *ngFor="let item of countryList">
+                  <div *ngIf="deliveryAddressInfo.countrykey && deliveryAddressInfo.countrykey == item.id"> 
+                    <ion-select-option  [value]="item.id" selected>{{item.name}}</ion-select-option>
+                  </div>
+                  <div *ngIf="deliveryAddressInfo.countrykey && deliveryAddressInfo.countrykey != item.id"> 
+                    <ion-select-option  [value]="item.id">{{item.name}}</ion-select-option>
+                  </div>
+                </div>
+              </ion-select>  
+
+              <!-- <ion-input placeholder="Country*" formControlName="country"></ion-input> -->
+            </ion-item> 
+          </ion-list>  
+        </ion-col>   
+        <ion-col size="2">&nbsp;</ion-col>   
+      </ion-row>    
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="4">
+          <ion-list class="line-input" mode="md"> 
+            <ion-item mode="md" lines="none">
+              <ion-input placeholder="Phone*" formControlName="phone"></ion-input>
+            </ion-item> 
+          </ion-list>  
+        </ion-col>
+        <ion-col size="6">
+          <ion-list class="line-input" mode="md"> 
+            <ion-item mode="md" lines="none">
+              <ion-input placeholder="Company*" formControlName="company"></ion-input>
+            </ion-item> 
+          </ion-list>  
+        </ion-col>   
+        <ion-col size="2">&nbsp;</ion-col>   
+      </ion-row> 
+          
+    </ion-grid>
+    <div class="all-address-div">
+      Your order will be delivered to: <span class="address-text"> {{all_addressText}}</span>
+    </div>
+    <div class="button-div">
+      <ion-item lines="none">
+        <ion-label style="font-size: 14px;">I accepted the <a (click)="openWithSystemBrowser()">terms & conditions</a> and if paying by credit, authorise payment for back ordered items.</ion-label>
+        <ion-checkbox color="dark" slot="start" mode="md" style="margin-right: 10px; margin-left: 10px;" (ionChange)="onCheckTermsAccept($event)"></ion-checkbox>
+      </ion-item>  
+      <div *ngIf="!isAcceptedTerms">
+        <ion-button  class="button-proceed" type="submit" mode="ios" fill="solid"  expand="block" [disabled]="true">
+          Submit this order for AU ${{totalAmount | number:'1.2-2'}}
+        </ion-button>
+      </div> 
+      <div *ngIf="isAcceptedTerms">
+        <ion-button  class="button-proceed" type="submit" mode="ios" fill="solid"  expand="block" [disabled]="!validationsform.valid">
+          Submit this order for AU ${{totalAmount | number:'1.2-2'}}
+        </ion-button>
+      </div> 
+    </div>
+  </form>
+</ion-content>

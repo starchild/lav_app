@@ -1,0 +1,106 @@
+<ion-header mode="ios">
+  <ion-toolbar style="height: 80px; align-items: center; justify-content: center; display: flex;">
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" slot="start">
+          <ion-icon name="arrow-back-outline" style="font-size: 38px;"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="product">{{product.productName}}</ion-title>
+    <!-- <ion-buttons slot="end">
+      <ion-button (click)="openMenu()" slot="start">
+        <ion-icon name="menu" style="font-size: 38px;"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content *ngIf="product">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col *ngIf="product.image.length > 1">
+        <ion-slides pager="true" [options]="slideOpts" mode="ios">
+          <ion-slide *ngFor="let productImage of product.image; let i = index">
+            <!-- <div
+              class="product-image"
+              [ngStyle]="{'background-image':'url('+ img_dir + productImage.name +')'}"
+              (click)="gotoDetail(item)">
+
+          </div> -->
+          <ion-img [src]="img_dir + productImage.name" (click)="gotoDetail(item)"></ion-img>
+          </ion-slide>
+        </ion-slides>        
+      </ion-col>
+      <ion-col *ngIf="product.image.length == 1">
+        <div class="product-image">
+          <ion-img [src]="img_dir + product.image[0].name"></ion-img>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top: 50px;">
+      <ion-col size="6" class="ion-text-center " >
+        <p><span><strong>Code:</strong> {{product.productCode}}</span></p>
+        <p><span><strong>Size:</strong> {{product.productDimension}}</span></p>
+        <p><span><strong>Min order quantity:</strong> {{product.productMinQty}}</span></p>
+        <!-- <div><svg  class="barcode" jsbarcode-format="EAN-13" #barCode></svg></div> -->
+        <div class="price-text">${{product.bulkPrice | number:'1.2-2'}}</div>
+        <div
+          class="product-bulk-div"
+          *ngIf="product.productPriceSlab > 0 && product.productQtySlab > 0"
+        >
+        Buy {{product.productQtySlab}} @ ${{product.productPriceSlab | number:'1.2-2'}}
+      </div> 
+      </ion-col>
+      <ion-col size="6" class="ion-text-center">
+        <p><strong>Packaging:</strong> </p>
+        <p>Weight: {{product.productWeight}}Kg</p>
+        <p>Length: {{product.productLength}}cm</p>
+        <p>Width: {{product.productWidth}}cm</p>
+        <p>Height: {{product.productHeight}}cm</p>
+        <p>Carton Qty: {{product.productCartonQty}}</p>
+
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-select
+          placeholder="{{product.placeholder_qty}}"
+          interface="popover"
+          mode="ios"
+          [interfaceOptions]="{'cssClass': 'price-popover'}"
+          (ionChange)="changePrice($event)"
+        >
+          <ion-select-option
+            *ngFor="let qty of product.qty_dropdownList"
+            [value]="qty"
+            >{{qty}}</ion-select-option
+          >
+        </ion-select>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button  class="button-addcart" mode="ios" fill="solid" expand="full" (click)="addToCart(product)">
+          Add To Cart
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row>
+      <ion-col size="12" class="ion-padding-start ion-padding-end">
+        <p><strong>Important Information:</strong> </p>
+        <p *ngIf="product.productImportantInfo != 'NULL'"><span class="description">{{product.productImportantInfo}}</span></p>
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col size="12" class="ion-padding-start ion-padding-end">
+        <p><strong>Short Description:</strong> </p>
+        <p *ngIf="product.productShortDescription != 'NULL'"><span class="description">{{product.productShortDescription}}</span></p>
+      </ion-col>
+    </ion-row>    
+    <ion-row >
+      <ion-col size="12" class="ion-padding-start ion-padding-end">
+        <p><strong>Description:</strong> </p>
+        <p *ngIf="product.productDescription != 'NULL'"><span class="description">{{product.productDescription}}</span></p>
+      </ion-col>
+    </ion-row>        -->
+  </ion-grid>
+
+</ion-content>

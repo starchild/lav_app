@@ -1,0 +1,54 @@
+<ion-header mode="ios">
+  <app-header
+    [pageTitle]="pageTitle"
+    [cartBadgeCount]="cartBadgeCount"
+    [isLoggedIn]="isLoggedIn">
+  </app-header>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row  class="ion-justify-content-center ion-align-items-center" *ngFor="let item of checkoutOrderList; let orderIndex = index">
+      <ion-col size="11" class="ion-text-center">
+        <ion-item >
+          <ion-label> Order ID : {{item.orderId}}</ion-label>
+          <ion-label> <fa-icon icon="print" class="printIcon"></fa-icon> {{item.orderDate}}, {{item.statusText}}</ion-label>   
+          <ion-button  *ngIf="item.expanded" slot="end" class="button-plus" (click)="getCheckoutOrderDetails(item, orderIndex)">
+            <ion-icon name="remove-outline" style="font-size: 32px;"></ion-icon>
+          </ion-button>       
+          <ion-button  *ngIf="!item.expanded" slot="end" class="button-plus" (click)="getCheckoutOrderDetails(item, orderIndex)">
+            <ion-icon name="add-outline" style="font-size: 32px;"></ion-icon>
+          </ion-button>             
+        </ion-item>
+        <app-expandable [expandHeight]="expandHeight" [expanded]="item.expanded">
+          <ion-grid class="ion-text-center">
+
+            <ion-row class="ion-justify-content-center ion-align-items-center">
+              <ion-col size="3">Order ID : {{item.orderId}}<br/><span style="font-size: small;">{{item.orderDate}}, {{item.statusText}}</span></ion-col>
+              <ion-col size="9">
+                <ion-row class="header-text ">
+                  <ion-col size="3">SKU</ion-col>
+                  <ion-col size="7">Product Name</ion-col>
+                  <ion-col size="2">Quantity</ion-col>
+                </ion-row>
+                <ion-row *ngFor="let details_Item of item.details" class="ion-padding-vertical">
+                  <ion-col size="3">{{details_Item.productCode}}</ion-col>
+                  <ion-col size="7">{{details_Item.productName}}</ion-col>
+                  <ion-col size="2">{{details_Item.productQty}}</ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <div class="button-div">
+            <ion-button  class="button-merge" mode="ios" fill="solid"  expand="block" (click)="mergeOrder(item)">Merge Order</ion-button>
+            <ion-button  class="button-merge" mode="ios" fill="solid"  expand="block" (click)="regenerateOrder(item)">Regenerate Order</ion-button>
+          </div>
+        </app-expandable>        
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

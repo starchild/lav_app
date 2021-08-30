@@ -1,0 +1,54 @@
+
+<ion-header mode="ios">
+  <ion-toolbar class="toolbar">
+    <ion-title>Login</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="openMenu()" slot="start">
+        <ion-icon name="menu" style="font-size: 38px;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid fixed >
+    <ion-row class="ion-justify-content-center ion-align-items-center" style="height: 200px;" >
+      <ion-col size="12" class="ion-text-center">
+        <img src="../assets/imgs/logo.png" class="logo-img"/>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-align-items-center" style="height: 200px;">
+      <ion-col size="12" class="ion-text-center">
+        <h1>This is a wholesale only site </h1>
+        <p class="description"> Access to pricing is strictly available to <br>
+          approved wholesale customers only. <br>
+          <!-- <a (click)="gotoSignup()"><span style="font-size: 22px;">Click here</span> </a>  to submit your registration request.  -->
+        </p>
+      </ion-col>
+    </ion-row>    
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="10" class="ion-text-center">
+        <form class="form" [formGroup]="validationsform" (ngSubmit)="trySignin(validationsform.value)">
+
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" lines="none">
+            <ion-icon name="mail-outline" size="small" slot="start"></ion-icon>
+            <ion-input class="ion-text-left" placeholder="Email address" type="email" formControlName="email"></ion-input>
+          </ion-item> 
+        </ion-list>
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" lines="none">
+            <ion-icon name="lock-closed-outline" size="small" slot="start"></ion-icon>
+            <ion-input class="ion-text-left" placeholder="Password" type="password" formControlName="password"></ion-input>
+          </ion-item> 
+        </ion-list>   
+        <app-loading *ngIf="isSigning"></app-loading>       
+        <ion-button  class="button-login" mode="ios" type="submit" fill="solid"  [disabled]="!validationsform.valid || isSigning"  size="default" expand="block">
+          LOG IN
+        </ion-button>
+        </form>
+      </ion-col>
+    </ion-row>   
+  </ion-grid>
+
+</ion-content>

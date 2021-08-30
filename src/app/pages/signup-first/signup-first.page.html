@@ -1,0 +1,38 @@
+<ion-header mode="ios">
+  <ion-toolbar class="toolbar">
+    <ion-title>Before we begin</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back();">
+        <ion-icon name="arrow-back-outline" style="font-size: 38px;" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center ion-align-items-center ion-padding">
+      <ion-col size="12" >
+        <img src="../assets/imgs/logo.png" class="logo-img"/>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-padding">
+      <ion-col size="11">
+        <p class="description_signup">Welcome to LaVida Trading wholesale access.</p>
+        <p class="description_signup">Please fill in the following details and you will be provided with unlimited access to all the great LaVida Trading products and pricing, all available online.</p>
+        <p class="description_signup">One of our team will review your application and we will endeavour to respond to you in the next 2-3 days. If you have any problems please call  (02) 4340 0411.</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-padding">
+      <ion-col size="9">&nbsp;</ion-col>
+      <ion-col size="3">
+        <ion-button  class="button-next" mode="ios" fill="solid"  expand="block" (click)="next();">
+          Next&nbsp;&nbsp;<ion-icon name="arrow-forward-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>    
+  </ion-grid>
+  <div class="button-div">
+  </div>
+</ion-content>

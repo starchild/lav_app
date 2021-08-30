@@ -1,0 +1,27 @@
+<ion-toolbar class="toolbar">
+  <ion-title>{{pageTitle}}</ion-title>
+  <div slot="end" id="cart-btn" *ngIf="isLoggedIn">
+    <ion-buttons>
+      <ion-button (click)="gotoCart();">
+        <ion-icon name="cart-outline" style="font-size: 38px;" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-badge id="cart-badge" color="success">{{cartBadgeCount}}</ion-badge>
+  </div>
+  <!-- <ion-buttons slot="end" >
+    <ion-button (click)="openLoginModal();" slot="start" *ngIf="!isLoggedIn">
+      <ion-icon name="person-circle-outline" style="font-size: 38px;"></ion-icon>
+      Login
+    </ion-button>
+    <ion-button (click)="logout();" slot="start" *ngIf="isLoggedIn">
+      <ion-icon name="power-outline" style="font-size: 38px;"></ion-icon>
+    </ion-button>      
+  </ion-buttons> -->
+
+  <ion-buttons slot="start">
+    <ion-button (click)="openMenu()" slot="start">
+      <ion-icon name="menu" style="font-size: 38px;"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+
+</ion-toolbar>

@@ -1,0 +1,54 @@
+ion-title{
+    letter-spacing: 0.1em; 
+    font-size: larger;
+}
+ion-input{
+    border: 1px solid #807e7e;
+    border-radius: 5px;
+}
+::ng-deep .price-popover
+{
+  --width: 100px;
+  --max-width: 400px;
+  --max-height: 300px;
+}
+ion-select{
+    border: 1px solid #807e7e;
+    height: 35px;
+    width: 90%;
+    margin-left: 10%;
+    margin-top: 10px;
+    color: #1f1f1f;
+    --placeholder-opacity: 1 !important;
+}
+ion-slides{
+    --bullet-background:  #7f7f7f;
+    --bullet-background-active: #333f;
+  }
+p {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ribbon-img{
+    width: 60px; 
+    height: 60px; 
+    position: absolute; 
+    top: 0; 
+    right: 0;
+}
+.button-login{
+    height: 50px;
+    font-size: 14px;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    --background: #70a1b6;
+    --color: white;
+    // --color-activated: white;
+    // --background-activated : #e76b6b;
+    // --border-color : white;
+    // --border-style: solid;
+    // --border-width: 1px;
+}
+

@@ -1,0 +1,83 @@
+<ion-header mode="ios">
+  <ion-toolbar class="toolbar">
+    <ion-title>About your business</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back();">
+        <ion-icon name="arrow-back-outline" style="font-size: 38px;" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form class="form" [formGroup]="validationsform" (ngSubmit)="submit(validationsform.value)">
+
+  <ion-grid class="ion-padding ship-profile">
+
+    <ion-row class="ion-justify-content-center ion-align-items-center ion-padding-start ion-padding-end">
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Payment Method</p>
+          <ion-item mode="md" lines="none">
+            <ion-select mode="md" style="width: 100%;" formControlName="payment_method">
+              <div *ngFor="let item of paymentMethod">
+                <ion-select-option  [value]="item.value">{{item.value}}</ion-select-option>
+              </div>
+            </ion-select>  
+        </ion-item> 
+        </ion-list>
+      </ion-col>
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Business Structure</p>
+          <ion-item mode="md" lines="none">
+            <ion-select mode="md" style="width: 100%;" formControlName="business_structure">
+              <div *ngFor="let item of businessStructure">
+                <ion-select-option  [value]="item.value">{{item.value}}</ion-select-option>
+              </div>
+            </ion-select>  
+          </ion-item> 
+        </ion-list>
+      </ion-col>      
+    </ion-row>     
+    <ion-row class="ion-justify-content-center ion-align-items-center ion-padding-start ion-padding-end">
+      <ion-col size="12">
+        <ion-list class="line-input" mode="md"> 
+          <p>ABN</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" placeholder="ABN" formControlName="abn"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+    </ion-row>       
+    <ion-row class="ion-justify-content-center ion-align-items-center ion-padding-start ion-padding-end">
+      <ion-col size="12">
+        <ion-list class="line-input" mode="md"> 
+          <p>Number of years trading or proposed date of opening</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text"  formControlName="trading_years"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+    </ion-row>    
+    <ion-row class="ion-justify-content-center ion-align-items-center ion-padding-start ion-padding-end">
+      <ion-col size="12">
+        <ion-list class="line-input" mode="md"> 
+          <p>If yes, what is your domain name?</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text"  formControlName="domain_name"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+    </ion-row>    
+    <ion-row class="ion-padding">
+      <ion-col size="12">
+        <ion-button  class="button-proceed" mode="ios" fill="solid"  expand="block" type="submit" [disabled]="!validationsform.valid">
+          Register for wholesale access
+        </ion-button>
+      </ion-col>
+    </ion-row>                
+  </ion-grid>
+  </form>
+</ion-content>

@@ -1,0 +1,47 @@
+<ion-app>
+    <ion-menu side="start" contentId="main-content" menuId="customMenu" type="overlay">
+      <ion-header class="ion-text-center" no-border>
+        <img src="./assets/imgs/logo.png" class="side-menu-logo">
+      </ion-header>
+      <ion-content>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appMenus" style="background: #cc0000;">
+            <ion-item [routerDirection]="'root'" (click)="gotoPage(p.url);" style="background: #cc0000;">
+              <ion-label>{{p.title}}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+      </ion-content>
+    </ion-menu>
+    <ion-menu side="start" contentId="main-content" menuId="loggedin_customMenu" type="overlay">
+      <ion-header class="ion-text-center" no-border>
+        <img src="./assets/imgs/logo.png" class="side-menu-logo">
+      </ion-header>
+      <ion-content>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of loggedin_appMenus">
+            <ion-item [routerDirection]="'root'" (click)="gotoPage(p.url);" >
+              <ion-label>{{p.title}}</ion-label>
+              
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-item (click)="isAccountSubmenus == 1 ? isAccountSubmenus = 0 : isAccountSubmenus = 1">
+            <ion-label>My Account</ion-label>
+            <ion-icon slot="end" [name]="isAccountSubmenus? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon>
+          </ion-item>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of account_subMenus">
+            <ion-list>
+              <ion-item menuclose [hidden]="!isAccountSubmenus" menuClose class="sub-menu" (click)="gotoAccountSubPage(p.url);">
+                <ion-icon [name]="p.icon" slot="start" size="small"></ion-icon>
+                {{p.title}}
+              </ion-item>
+            </ion-list>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item (click)="logout()">
+              <ion-label>Logout</ion-label>
+              <!-- <ion-icon slot="start" name="power-outline"></ion-icon> -->
+            </ion-item>  
+          </ion-menu-toggle>
+    
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet [swipeGesture]="false" mode="md" id="main-content"></ion-router-outlet>
+</ion-app>

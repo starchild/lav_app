@@ -1,0 +1,101 @@
+ion-row{
+    margin-bottom: 10px;
+}
+ion-select{
+    border: 1px solid #807e7e;
+    height: 40px;
+    margin-top: 10px;
+    color: #1f1f1f;
+    --placeholder-opacity: 1 !important;
+}
+.product-image{
+    background-size: cover;
+    background-position: center;
+    height: 80px;
+}
+::ng-deep .price-popover
+{
+  --width: 100px;
+  --max-width: 400px;
+  --max-height: 300px;
+}
+.product-name{
+    font-size: 18px;
+    font-weight: 400;
+}
+.product-content{
+    font-size: 16px;
+    font-weight: 300;
+    margin-top: 10px;
+}
+.total-amount-div{
+    background-color: rgb(51, 51, 51);
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8em;
+    color: white;
+    font-weight: 600;
+}
+.minimum-amount-div{
+    background-color:#f06e75;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    color: white;
+    font-weight: 400;
+    padding: 10px;
+}
+.amount-alet-div{
+    background-color:#f1db96;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 300;
+    padding: 10px;
+}
+.button-header{
+    height: 60px;
+
+    font-size: 1.0em;
+    font-weight: bold !important;
+    margin: 0 !important;
+    margin-top: 10px !important;
+    //text-transform: uppercase !important;
+    --background: #6ea3b9a8;
+    --color: white;
+    // --color-activated: white;
+    // --background-activated : #e76b6b;
+    --border-color : white;
+    --border-style: solid;
+    --border-width: 1px;
+}
+p{
+    padding: 0px;
+    margin: 0px;
+}
+.checkout-div{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.button-checkout{
+    height: 60px;
+    font-size: 1.8em;
+    margin: 0 !important;
+    margin-top: 10px !important;
+    --background: #7dcf85;
+    --background-activated : #e2f1e4;
+    --color: white;
+    --border-color : white;
+    --border-style: solid;
+    --border-width: 1px;
+    ion-icon{
+        font-size: 1.0em;
+    }
+}
+.product-left-image{
+    width: 80px;
+    height: 80px;
+}

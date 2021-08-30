@@ -1,0 +1,100 @@
+<ion-header mode="ios">
+  <ion-toolbar class="toolbar">
+    <ion-title>Additional Information</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back();">
+        <ion-icon name="arrow-back-outline" style="font-size: 38px;" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form class="form" [formGroup]="validationsform" (ngSubmit)="submit(validationsform.value)">
+  <ion-grid >
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12">
+        <ion-list class="line-input" mode="md"> 
+          <p>Email Address*</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" type="email" formControlName="email"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+    </ion-row>   
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12">
+        <ion-list class="line-input" mode="md"> 
+          <p>Confirm Email Address*</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" type="email" formControlName="confirm_email"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+    </ion-row>       
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Prefered Password</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="password" formControlName="password"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Repeat Preferred Password</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="password" formControlName="confirm_password"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>      
+    </ion-row>   
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Name of Business*</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" formControlName="business_name"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Your Position*</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" formControlName="position"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>      
+    </ion-row>      
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Phone*</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" formControlName="phone"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>
+      <ion-col size="6">
+        <ion-list class="line-input" mode="md"> 
+          <p>Shop Phone*</p>
+          <ion-item mode="md" lines="none">
+            <ion-input class="ion-text-left" type="text" formControlName="shop_phone"></ion-input>
+          </ion-item> 
+        </ion-list>
+      </ion-col>      
+    </ion-row>  
+    <ion-row class="ion-padding">
+      <ion-col size="9">&nbsp;</ion-col>
+      <ion-col size="3">
+        <ion-button  class="button-next" mode="ios" fill="solid"  expand="block" type="submit" [disabled]="!validationsform.valid">
+          Next&nbsp;&nbsp;<ion-icon name="arrow-forward-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>                     
+  </ion-grid>
+  </form>
+</ion-content>

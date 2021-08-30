@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-header mode="ios">
+    <app-header
+      [pageTitle]="pageTitle"
+      [cartBadgeCount]="cartBadgeCount"
+      [isLoggedIn]="isLoggedIn">
+    </app-header>
+  </ion-header>
+
+<ion-content>
+  <div style="height: 300px; display: flex; justify-content: center; align-items: center;">checkoutOrderList.length</div>
+  <!-- <ion-grid>
+    <ion-row  class="ion-justify-content-center ion-align-items-center" *ngFor="let item of checkoutOrderList">
+      <ion-col size="11" class="ion-text-center">
+        <ion-item >
+          <ion-label> Order ID : {{item.orderId}}</ion-label>
+          <ion-label> {{item.orderDate}}, Dispatched</ion-label>   
+          <ion-button slot="end" class="button-plus" (click)="getCheckoutOrderDetails(item)"><ion-icon name="add-outline" style="font-size: 32px;"></ion-icon></ion-button>       
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <!-- <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+</ion-content>

@@ -1,0 +1,66 @@
+<ion-header mode="ios">
+  <app-header
+    [pageTitle]="pageTitle"
+    [cartBadgeCount]="cartBadgeCount"
+    [isLoggedIn]="isLoggedIn">
+  </app-header>
+</ion-header>
+<div *ngIf="!isEmptyCart && !isShowCartMinimum && !isShowCartAlert" class="checkout-div">
+  <ion-button  class="button-checkout" mode="ios" fill="solid"  expand="full" (click)="gotoShippingAddress()">
+    Checkout ${{order_all_amount | number:'1.2-2'}}&nbsp;&nbsp; <ion-icon name="chevron-forward-circle-outline"></ion-icon>
+  </ion-button>
+</div>
+<div class="total-amount-div" *ngIf="isShowCartMinimum || isShowCartAlert">
+  Total ${{order_all_amount | number:'1.2-2'}}
+</div>
+<div class="minimum-amount-div" *ngIf="!isEmptyCart && isShowCartMinimum">
+  You are ${{minimum_order_amount | number:'1.2-2'}} short of our minimum order amount<br/>
+  <span *ngIf="preorder_amount > 0">(${{preorder_amount | number:'1.2-2'}} of pre-order products not included)</span>
+</div>
+<div class="amount-alet-div" *ngIf="globalSetting && isShowCartAlert && !isEmptyCart">
+  <span>{{globalSetting.amount_alert_text}}</span>
+  <p>{{globalSetting.amount_alert_pre_text}} <strong>${{globalSetting.amount_alert_ceiling - order_all_amount  | number:'1.2-2'}}</strong> {{globalSetting.amount_alert_post_text}}</p>
+
+</div>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4">
+        <ion-button  class="button-header" mode="ios" fill="solid"  expand="full" (click)="keepShopping()">Keep Shopping <ion-icon name="caret-forward-outline"></ion-icon></ion-button>
+      </ion-col>
+      <ion-col size="4">
+        <ion-button  class="button-header" mode="ios" fill="solid"  expand="full" (click)="saveOrder()">Save Order&nbsp;<ion-icon name="save-outline"></ion-icon></ion-button>
+      </ion-col>
+      <ion-col size="4">
+        <ion-button  class="button-header" mode="ios" fill="solid" expand="full" (click)="clearCart()">Empty Cart&nbsp;<ion-icon name="trash-outline"></ion-icon></ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="!isEmptyCart">
+    <ion-row *ngFor="let item of cartProductList; let productIndex = index" class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="2" class="ion-text-center">
+        <ion-img  [src]="img_dir + item.image[0].name" class="product-left-image"></ion-img>
+      </ion-col>
+      <ion-col size="3" >
+        <div class="product-name">{{item.productCode}}: {{item.productName}}</div>
+        <div class="product-content">Code: {{item.productCode}}</div>
+      </ion-col>
+      <ion-col size="2" >
+        <div class="product-content">${{item.bulkPrice | number:'1.2-2'}}</div>
+      </ion-col>      
+      <ion-col size="2" class="ion-text-center">
+        <ion-select placeholder={{item.qty}} interface="popover" mode="ios" [interfaceOptions]="{'cssClass': 'price-popover'}" (ionChange)="changeQty($event, productIndex)">
+          <ion-select-option *ngFor="let qty of item.qty_dropdownList" [value]="qty">{{qty}}</ion-select-option>
+        </ion-select>  
+      </ion-col>
+      <ion-col size="2" class="ion-text-center">
+        <div class="product-name">${{item.amount | number:'1.2-2'}}</div>
+      </ion-col>
+      <ion-col size="1" class="ion-text-center">
+        <ion-button color="danger" (click)="removeProduct(productIndex)"><ion-icon name="trash-outline"></ion-icon></ion-button>
+      </ion-col>      
+    </ion-row>
+  </ion-grid>
+  <h5 *ngIf="isEmptyCart">&nbsp;&nbsp;Your shopping cart is empty for the moment.</h5>
+</ion-content>

@@ -1,0 +1,108 @@
+<ion-header mode="ios">
+  <app-header
+    [pageTitle]="pageTitle"
+    [cartBadgeCount]="cartBadgeCount"
+    [isLoggedIn]="isLoggedIn"
+  >
+  </app-header>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="isLoading" class="loading-div">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </div>
+  <ion-grid *ngIf="!isLoggedIn && !isLoading">
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12" class="ion-text-center">
+        This content only available to logged in, approved members.
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="img_dir != '' && isLoggedIn && !isLoading">
+    <ion-row>
+      <ion-col
+        *ngFor="let item of productList; let productIndex = index"
+        size="4"
+      >
+        <ion-card >
+          <div *ngIf="item.image.length == 1" >
+            <div class="product-image-div"
+            (click)="gotoDetail(item)">
+              <ion-img  [src]="img_dir + item.image[0].name" class="product-image"></ion-img>
+              <img *ngIf="item.productPreOrder != 1" src="../assets/imgs/new.png" class="ribbon-img" />
+              <img *ngIf="item.productPreOrder == 1" src="../assets/imgs/preorder.png" class="ribbon-img" />
+            </div>   
+          </div>
+       
+          <ion-slides pager="true" [options]="slideOpts" mode="ios" *ngIf="item.image.length > 1">
+            <ion-slide *ngFor="let productImage of item.image; let i = index">
+              <div
+                class="product-image-div"
+                (click)="gotoDetail(item)">
+                <ion-img  [src]="img_dir + productImage.name" class="product-image"></ion-img>
+                <div *ngIf="i == 0">
+                  <img *ngIf="item.productPreOrder != 1" src="../assets/imgs/new.png" class="ribbon-img" />
+                  <img *ngIf="item.productPreOrder == 1" src="../assets/imgs/preorder.png" class="ribbon-img" />
+                </div>  
+              </div>
+            </ion-slide>
+          </ion-slides>
+          <ion-card-content>
+            <p><span class="product-name">{{item.productName}}</span></p>
+            <div class="product-info-div">
+              <div style="width: 60%">
+                <p>{{item.productCode}}</p>
+                <p>{{item.productDimension}}</p>
+                <div
+                  class="bulk-div"
+                  *ngIf="item.productPriceSlab > 0 && item.productQtySlab > 0"
+                >
+                  Buy {{item.productQtySlab}} @ ${{item.productPriceSlab | number:'1.2-2'}}
+                </div>
+              </div>
+              <div style="width: 40%; margin-left: 5px">
+                <p class="product-price">
+                  ${{item.bulkPrice | number:'1.2-2'}}
+                </p>
+                <ion-select
+                  placeholder="{{item.placeholder_qty}}"
+                  interface="popover"
+                  mode="ios"
+                  [interfaceOptions]="{'cssClass': 'price-popover'}"
+                  (ionChange)="changePrice($event, productIndex)"
+                >
+                  <ion-select-option
+                    *ngFor="let qty of item.qty_dropdownList"
+                    [value]="qty"
+                    >{{qty}}</ion-select-option
+                  >
+                </ion-select>
+              </div>
+            </div>
+          </ion-card-content>
+          <ion-button
+            class="button-login"
+            mode="ios"
+            fill="solid"
+            expand="full"
+            (click)="addToCart(item)"
+          >
+            <span *ngIf="item.productPreOrder != 1">Add To Cart</span>
+            <span *ngIf="item.productPreOrder == 1">Pre Order</span>
+          </ion-button>
+
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>
+

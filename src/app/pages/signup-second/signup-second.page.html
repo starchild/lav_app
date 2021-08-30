@@ -1,0 +1,111 @@
+<ion-header mode="ios">
+  <ion-toolbar class="toolbar">
+    <ion-title>Account Details</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back();">
+        <ion-icon name="arrow-back-outline" style="font-size: 38px;" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form class="form" [formGroup]="validationsform" (ngSubmit)="submit(validationsform.value)">
+    <ion-grid >
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="6">
+          <ion-list class="line-input" mode="md"> 
+            <p>First Name*</p>
+            <ion-item mode="md" lines="none">
+              <ion-input class="ion-text-left" placeholder="First Name" type="text" formControlName="first_name"></ion-input>
+            </ion-item> 
+          </ion-list>
+        </ion-col>
+        <ion-col size="6">
+          <ion-list class="line-input" mode="md"> 
+            <p>Last Name*</p>
+            <ion-item mode="md" lines="none">
+              <ion-input class="ion-text-left" placeholder="Last Name" type="text" formControlName="last_name"></ion-input>
+            </ion-item> 
+          </ion-list>
+        </ion-col>      
+      </ion-row>
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="6">
+          <ion-list class="line-input" mode="md"> 
+            <p>Street Address 1*</p>
+            <ion-item mode="md" lines="none">
+              <ion-input class="ion-text-left" type="text" formControlName="address1"></ion-input>
+            </ion-item> 
+          </ion-list>
+        </ion-col>
+        <ion-col size="6">
+          <ion-list class="line-input" mode="md"> 
+            <p>Street Address 2*</p>
+            <ion-item mode="md" lines="none">
+              <ion-input class="ion-text-left" type="text" formControlName="address2"></ion-input>
+            </ion-item> 
+          </ion-list>
+        </ion-col>      
+      </ion-row>    
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="6">
+          <ion-list class="line-input" mode="md"> 
+            <p>Town/City*</p>
+            <ion-item mode="md" lines="none">
+              <ion-input class="ion-text-left" type="text" formControlName="city"></ion-input>
+            </ion-item> 
+          </ion-list>
+        </ion-col>
+        <ion-col size="6">
+          <ion-list class="line-input" mode="md"> 
+            <p>Post Code*</p>
+            <ion-item mode="md" lines="none">
+              <ion-input class="ion-text-left" type="text" formControlName="post_code"></ion-input>
+            </ion-item> 
+          </ion-list>
+        </ion-col>      
+      </ion-row>   
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="6">
+          <ion-list class="line-input" mode="md"> 
+            <p>State*</p>
+            <ion-item mode="md" lines="none" *ngIf="isDropBoxForState">
+              <ion-select mode="md" style="width: 100%;" formControlName="state">
+                <div *ngFor="let item of stateList">
+                  <ion-select-option  [value]="item.value">{{item.value}}</ion-select-option>
+                </div>
+              </ion-select>  
+            </ion-item> 
+            <ion-item mode="md" lines="none" *ngIf="!isDropBoxForState">
+              <ion-input placeholder="State*" formControlName="state"></ion-input>
+            </ion-item>  
+          </ion-list>
+        </ion-col>
+        <ion-col size="6">
+          <ion-list class="line-input" mode="md"> 
+            <p>Country*</p>
+            <ion-item mode="md" lines="none">
+              <ion-select mode="md" style="width: 100%;" formControlName="countrykey" (ionChange)="changeCountry($event)">
+                <div *ngFor="let item of countryList">
+                   <ion-select-option  [value]="item.id">{{item.name}}</ion-select-option>
+                </div>
+              </ion-select>  
+            </ion-item> 
+          </ion-list>
+        </ion-col>      
+      </ion-row>    
+      <ion-row class="ion-padding">
+        <ion-col size="9">&nbsp;</ion-col>
+        <ion-col size="3">
+          <ion-button  class="button-next" mode="ios" fill="solid" type="submit" expand="block" [disabled]="!validationsform.valid">
+            Next&nbsp;&nbsp;<ion-icon name="arrow-forward-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>    
+               
+    </ion-grid>
+
+  </form>
+</ion-content>
