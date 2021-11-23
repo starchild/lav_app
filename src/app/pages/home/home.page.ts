@@ -33,7 +33,7 @@ export class HomePage implements OnInit {
   pageTitle = 'Home';
   isLoggedIn = false;
   cartProductList = [];
-
+  isShowSearchBar = true;
   constructor(
     public plt: Platform,
     public db: DbService,
@@ -50,7 +50,7 @@ export class HomePage implements OnInit {
   async ionViewWillEnter(){
     this.img_dir = this.pathForImage(this.file.documentsDirectory + 'banner_img/');
     this.loginedUserInfo = await this.storageService.getObject("loginedUser");
-    
+    this.isShowSearchBar = false;
     if(this.loginedUserInfo)
       this.isLoggedIn = true;
       

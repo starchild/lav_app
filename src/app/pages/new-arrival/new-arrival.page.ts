@@ -21,6 +21,7 @@ export class NewArrivalPage implements OnInit {
   qty_dropdown = "";
   placeholder_qty = "";
   qty_dropdownList = [];
+  isShowSearchBar = false;
 
   pageTitle = 'New Products';
   isLoggedIn = false;
@@ -36,6 +37,7 @@ export class NewArrivalPage implements OnInit {
 
     freeMode: false
   };
+  searchText = "";
   constructor(
     public storageService: StorageService,
     public webview: WebView,
@@ -54,9 +56,12 @@ export class NewArrivalPage implements OnInit {
     if(!this.loginedUser){
       this.isLoggedIn = false;
       this.isLoading = false;
+      this.isShowSearchBar = false;
+
     }else{
       this.isLoggedIn = true;
-      this.getNewProducts(false, "");
+      this.isShowSearchBar = true;
+      this.getNewProducts(false, "", this.searchText);
     }
   }
 
@@ -70,32 +75,38 @@ export class NewArrivalPage implements OnInit {
       this.cartBadgeCount = this.cartProductList.length;  
   }
   
-  async getNewProducts(isFirstLoad, event){
+  async getNewProducts(isFirstLoad, event, searchText){
     this.db.getDatabaseState().subscribe(async (res) => {
       if(res){
 
-        this.loadMore_productList = await this.db.getNewProducts(this.loginedUser.group_id, this.from_limitVal);
+        this.loadMore_productList = await this.db.getNewProducts(this.loginedUser.group_id, this.from_limitVal, searchText);
         for(var i=0; i<this.loadMore_productList.length; i++){
           this.loadMore_productList[i].qty_dropdownList = this.getQtyList(this.loadMore_productList[i]);
           this.loadMore_productList[i].placeholder_qty = this.placeholder_qty;
           this.loadMore_productList[i].bulkPrice = this.loadMore_productList[i].productPrice;
-          console.log(this.loadMore_productList[i].productId);
           this.loadMore_productList[i].image = await this.db.getProductImagesById(this.loadMore_productList[i].productId);
           
           this.productList.push(this.loadMore_productList[i]);
-          
         }
+
         this.isLoading = false;
         if (isFirstLoad)
           event.target.complete();
           
-        this.from_limitVal = this.from_limitVal + 30;  
+        this.from_limitVal = this.from_limitVal + 15;  
       }
     });  
   }
 
   async loadMore(event){
-    this.getNewProducts(true, event);
+    this.getNewProducts(true, event, this.searchText);
+  }
+
+  onChangeSearchInput(searchText){
+    this.searchText = searchText;
+    this.productList = [];
+    this.from_limitVal = 0;
+    this.getNewProducts(false, "", this.searchText);
   }
 
   getQtyList(product){

@@ -1,27 +1,23 @@
-<ion-toolbar class="toolbar">
-  <ion-title>{{pageTitle}}</ion-title>
-  <div slot="end" id="cart-btn" *ngIf="isLoggedIn">
-    <ion-buttons>
-      <ion-button (click)="gotoCart();">
-        <ion-icon name="cart-outline" style="font-size: 38px;" color="primary"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-badge id="cart-badge" color="success">{{cartBadgeCount}}</ion-badge>
+<div class="header-div">
+  <div class="header-block">
+    <ion-button (click)="openMenu()" class="btn-menu">
+      <ion-icon name="menu" style="font-size: 38px;" color="primary"></ion-icon>
+    </ion-button>
+    <p class="page-title">{{pageTitle}}</p>
   </div>
-  <!-- <ion-buttons slot="end" >
-    <ion-button (click)="openLoginModal();" slot="start" *ngIf="!isLoggedIn">
-      <ion-icon name="person-circle-outline" style="font-size: 38px;"></ion-icon>
-      Login
+  <div class="header-block" style="justify-content: flex-end;">
+    <ion-searchbar mode="ios" class="custom-search" inputmode="search" *ngIf="showSearchBar" (ionChange)=onChangeSearchInput($event)></ion-searchbar>
+    <ion-button (click)="gotoCategory();" class="btn-menu" style="margin-left: 10px;">
+      <ion-icon name="home-outline" style="font-size: 38px;" color="primary"></ion-icon>
     </ion-button>
-    <ion-button (click)="logout();" slot="start" *ngIf="isLoggedIn">
-      <ion-icon name="power-outline" style="font-size: 38px;"></ion-icon>
-    </ion-button>      
-  </ion-buttons> -->
-
-  <ion-buttons slot="start">
-    <ion-button (click)="openMenu()" slot="start">
-      <ion-icon name="menu" style="font-size: 38px;"></ion-icon>
+    <ion-button (click)="gotoCart();" *ngIf="isLoggedIn" class="btn-menu" style="margin-left: 10px;">
+      <ion-icon name="cart-outline" style="font-size: 38px;" color="primary"></ion-icon>
     </ion-button>
-  </ion-buttons>
+    <ion-badge id="cart-badge" color="success">{{cartBadgeCount}}</ion-badge>
+  </div>  
 
-</ion-toolbar>
+
+</div>
+<!-- <div class="header-badge-div" *ngIf="hasUnreadOrder">
+  <ion-icon name="notifications" class="notification-icon"></ion-icon>
+</div> -->

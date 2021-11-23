@@ -2,7 +2,9 @@
   <app-header
     [pageTitle]="pageTitle"
     [cartBadgeCount]="cartBadgeCount"
-    [isLoggedIn]="isLoggedIn">
+    [isLoggedIn]="isLoggedIn"
+    [showSearchBar]="isShowSearchBar"
+    (searcnInput)="onChangeSearchInput($event)">
   </app-header>
 </ion-header>
 
@@ -22,7 +24,7 @@
         </ion-card>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> 
   <ion-infinite-scroll (ionInfinite)="loadMore($event)">
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"

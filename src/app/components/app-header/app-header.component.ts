@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {  MenuController,  } from '@ionic/angular';
 import {StorageService} from '../../services/storage/storage.service';
 import { Router} from '@angular/router';
@@ -15,7 +15,8 @@ export class AppHeaderComponent implements OnInit {
   @Input() pageTitle: string;
   @Input() isLoggedIn: boolean;
   @Input() cartBadgeCount: any;
-
+  @Input() showSearchBar: any;
+  @Output() searcnInput = new EventEmitter<any>();
   constructor(
     public menuCtrl: MenuController,
     public storageService: StorageService,
@@ -28,10 +29,15 @@ export class AppHeaderComponent implements OnInit {
   async openLoginModal() {
     this.router.navigate(['/login']);
   }
+
   gotoCart(){
     this.router.navigate(['/cart']);
   }
 
+  gotoCategory(){
+    this.router.navigate(['/category']);
+  }
+  
   logout(){
     this.storageService.removeItem("loginedUser");
     this.menuCtrl.close('loggedin_customMenu');
@@ -48,5 +54,9 @@ export class AppHeaderComponent implements OnInit {
       this.menuCtrl.open('customMenu');
   
     }
+  }
+
+  onChangeSearchInput(e){
+    this.searcnInput.emit(e.detail.value);
   }
 }

@@ -469,9 +469,12 @@ export class DbService {
   }
 
   //Category page start-----
-  getCategories(from){
-    let query = "SELECT DISTINCT a.* FROM ProdCat as a LEFT JOIN ProductCategory as b ON a.id = b.category_id LEFT JOIN Product as c ON b.product_id = c.id WHERE a.type = 1 AND a.portal1 = 1 AND a.image != 'NULL' ORDER BY a.name, a.display_order LIMIT " + from + ", 6";
-    
+  getCategories(from, searchText){
+    // let query = "SELECT DISTINCT a.* FROM ProdCat as a LEFT JOIN ProductCategory as b ON a.id = b.category_id LEFT JOIN Product as c ON b.product_id = c.id WHERE a.type = 1 AND a.portal1 = 1 AND a.image != 'NULL' ORDER BY a.name, a.display_order LIMIT " + from + ", 6";
+    const searchParam = searchText == '' ? '' : " ProdCat.name LIKE '%" + searchText + "%' AND";  
+
+    let query = "select * from ProdCat where" +  searchParam + " hide_home !=1 and type='1' and portal1='1' and hide_nav='0' order by display_title, display_order LIMIT " + from + ", 10";
+    console.log(query);
     return this.storage.executeSql(query, []).then(data => {
       let result = [];
       if (data.rows.length > 0) {
@@ -577,9 +580,9 @@ export class DbService {
       return result;
     });
   }
-  async getNewProducts(group_id, from){
-
-    let query = "SELECT DISTINCT `Product`.`id` AS `dis_id`, `Product`.*, Product.group" + group_id + "_price as productPrice FROM `Product`, `ProdCat`,`ProductCategory` WHERE `ProductCategory`.`product_id` = `Product`.`id` AND `ProductCategory`.`category_id` = `ProdCat`.`id` AND Product.web_ready='1' AND Product.parent_id <= '0' AND ProdCat.portal1='1' AND  Product.new_product=1 ORDER BY datetime(due_date) DESC, new_product DESC, datetime(new_date) DESC, id DESC, code LIMIT " + from + ", 30";
+  async getNewProducts(group_id, from, searchText){
+    const searchParam = searchText == '' ? '' : " Product.name LIKE '%" + searchText + "%' AND";  
+    let query = "SELECT DISTINCT `Product`.`id` AS `dis_id`, `Product`.*, Product.group" + group_id + "_price as productPrice FROM `Product`, `ProdCat`,`ProductCategory` WHERE" +  searchParam + " `ProductCategory`.`product_id` = `Product`.`id` AND `ProductCategory`.`category_id` = `ProdCat`.`id` AND Product.web_ready='1' AND Product.parent_id <= '0' AND ProdCat.portal1='1' AND  Product.new_product=1 ORDER BY datetime(Product.new_date) DESC, Product.new_product DESC, Product.id DESC, code LIMIT " + from + ", 15";
     
     return this.storage.executeSql(query, []).then(data => {
       let result = [];

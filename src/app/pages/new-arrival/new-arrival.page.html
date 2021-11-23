@@ -3,7 +3,10 @@
     [pageTitle]="pageTitle"
     [cartBadgeCount]="cartBadgeCount"
     [isLoggedIn]="isLoggedIn"
+    [showSearchBar]="isShowSearchBar"
+    (searcnInput)="onChangeSearchInput($event)"
   >
+  
   </app-header>
 </ion-header>
 

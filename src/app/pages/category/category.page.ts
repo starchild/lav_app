@@ -29,6 +29,8 @@ export class CategoryPage implements OnInit {
   cartProductList = [];
   isLoading = false;
   from_limitVal = 0;
+  searchText = "";
+  isShowSearchBar = false;
 
   constructor(
     public alertController: AlertController,
@@ -43,7 +45,8 @@ export class CategoryPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.img_dir = this.pathForImage(this.file.documentsDirectory + 'prod_cat_img/');
+    if(this.file.documentsDirectory)
+     this.img_dir = this.pathForImage(this.file.documentsDirectory + 'prod_cat_img/');
     this.loginedUser = await this.storageService.getObject('loginedUser');
     this.cartProductList = await this.storageService.getObject(config.cart_products);
     this.isLoading = true;
@@ -57,9 +60,12 @@ export class CategoryPage implements OnInit {
     if(!this.loginedUser){
       this.isLoggedIn = false;
       this.isLoading = false;
+      this.isShowSearchBar = false;
+
     }else{
       this.isLoggedIn = true;
-      this.getCategoryList(false, "");
+      this.isShowSearchBar = true;
+      this.getCategoryList(false, "", "");
     }
   }
 
@@ -68,25 +74,34 @@ export class CategoryPage implements OnInit {
 
   }
 
-  async getCategoryList(isFirstLoad, event){
+  async getCategoryList(isFirstLoad, event, searchText){
     this.db.getDatabaseState().subscribe(async (res) => {
       if(res){
-        this.loadMore_categories = await this.db.getCategories(this.from_limitVal);
+        this.loadMore_categories = await this.db.getCategories(this.from_limitVal, searchText);
         for(var i=0; i<this.loadMore_categories.length; i++){
           this.loadMore_categories[i].image = await this.db.getCategoryImagesById(this.loadMore_categories[i].id);
           this.categorylist.push(this.loadMore_categories[i]);
         }
-        console.log(this.categorylist);
         this.isLoading = false;
         if (isFirstLoad)
           event.target.complete();
           
-        this.from_limitVal = this.from_limitVal + 6;  
+        this.from_limitVal = this.from_limitVal + 10;  
+        console.log(this.categorylist.length);
+
       }
     });  
   }
 
+  onChangeSearchInput(searchText){
+    this.searchText = searchText;
+    this.categorylist = [];
+    this.from_limitVal = 0;
+    this.getCategoryList(false, "", this.searchText);
+  }
+
   pathForImage(img) {
+    console.log("img=====", img);
     if (img === null) {
       return '';
     } else {
@@ -108,6 +123,6 @@ export class CategoryPage implements OnInit {
     }
   }
   async loadMore(event){
-    this.getCategoryList(true, event);
+    this.getCategoryList(true, event, this.searchText);
   }
 }
